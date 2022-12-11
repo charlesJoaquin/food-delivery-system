@@ -2,7 +2,7 @@
 
     include('config/db_connect.php');
 
-    $name = $order_name = $address = $contact = '';
+    $name = $order = $address = $contact = '';
     $errors = array('name' => '', 'order_name' => '', 'address' => '', 'contact' => '');
 
     
@@ -15,17 +15,6 @@
             $name = $_POST['name'];
             if (ctype_alpha(str_replace(' ', '', $name)) === false){
                 $errors['name'] = 'Name must be letters and spaces only';
-            }
-        }
-
-        // check order
-        if (empty($_POST['order_name'])) {
-            $errors['order_name'] = 'Order is required <br />';
-        } else {
-            $order_name = $_POST['order_name'];
-            if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $order_name)){
-                $errors['order_name'] = 'Order must be comma separated list';
-                
             }
         }
 
@@ -49,27 +38,81 @@
             }
         }
 
+        // check orders
+        $sql = "SELECT * FROM menu";
+        $result = $conn -> query($sql);
+        $totalCost = 0;
+        while ($row = $result->fetch_assoc())   {
+            $itemQuantity = $_POST['item-'.$row['MENU_ID']];
+            $price = $row['MENU_PRICE'];
+
+            if ($itemQuantity != null and $itemQuantity != 0)    {
+                $totalCost += $price*$itemQuantity;
+                $orderDetails = $orderDetails.$row['MENU_NAME']." x".$itemQuantity.",";
+            }
+        }
+        if ($totalCost == 0)    {
+            $errors['order'] = 'You must order at least one menu item';
+        }
+        
+
         if (array_filter($errors)) {
             //echo 'there are errors in the form';
         } else {
+            $sql = "SELECT * FROM menu";
+            $result = $conn -> query($sql);
 
-            $name = mysqli_real_escape_string($conn, $_POST['name']);
-            $order_name = mysqli_real_escape_string($conn, $_POST['order_name']);
-            $address = mysqli_real_escape_string($conn, $_POST['address']);
-            $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+            // Generate order details and calculate total cost
+            $totalCost = 0;
+            $orderDetails = "";
+            while ($row = $result->fetch_assoc())   {
+                $itemQuantity = $_POST['item-'.$row['MENU_ID']];
+                $price = $row['MENU_PRICE'];
 
-            // create sql
-            $sql = "INSERT INTO cus_order(CUS_NAME,ORDER_DETAILS,CUS_ADDRESS,CUS_CONTACT_NO) VALUES ('$name', '$order_name', '$address', '$contact')";
+                if ($itemQuantity != null and $itemQuantity != 0)    {
+                    $totalCost += $price*$itemQuantity;
+                    $orderDetails = $orderDetails.$row['MENU_NAME']." x".$itemQuantity.",";
+                }
+            }
+            $orderDetails = substr_replace($orderDetails,"",-1); // removes the last comma
 
-            // save to db and check
-            if (mysqli_query($conn, $sql)) {
-                // success
-                header('Location: index.php');
-            } else {
-                // error
-                echo 'query error' . mysqli_error($conn);
+            // Gets user information from previously submitted form
+            $userID = 999999999;
+            $address = $_POST['address'];
+            $name = $_POST['name'];
+            $contactNumber = $_POST['contact'];
+
+            // Insert into table
+            $sql = "INSERT INTO cus_order (CUS_ID, CUS_ADDRESS, CUS_NAME, CUS_CONTACT_NO, ORDER_COST, ORDER_DETAILS)
+            VALUES ("
+                .$userID.","
+                ."'".$address."'".","
+                ."'".$name."'".","
+                .$contactNumber.","
+                .$totalCost.","
+                ."\"".$orderDetails."\""
+                .")";
+
+            echo "INSERT INTO cus_order (CUS_ID, CUS_ADDRESS, CUS_NAME, CUS_CONTACT_NO, ORDER_COST, ORDER_DETAILS)
+            VALUES ("
+                .$userID.","
+                ."'".$address."'".","
+                ."'".$name."'".","
+                .$contactNumber.","
+                .$totalCost.","
+                ."\"".$orderDetails."\""
+                .")";
+
+            if ($conn->query($sql) === TRUE) {
+                // go to employee homepage
+                header("Location: http://localhost/food-delivery-system/employee/index.php");
+                exit();
+            }
+            else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
+            $conn -> close();
         }
 
     }
@@ -84,7 +127,7 @@
 
     <section class="container grey-text">
         <h4 class="center">Add Order</h4>
-        <form class="white" action="add-and-calculate.php" method="POST">
+        <form class="white" action="add.php" method="POST">
             <label>Name:</label>
             <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
             <div class="red-text"><?php echo $errors['name'] ?></div>
@@ -96,6 +139,7 @@
             <input type="text" name="contact" value="<?php echo htmlspecialchars($contact) ?>">
             <div class="red-text"><?php echo $errors['contact'] ?></div>
 
+            <div class="red-text"><?php echo $errors['order'] ?></div>
             <label>Order</label>
             <fieldset>
                 <table>
