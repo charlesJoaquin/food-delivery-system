@@ -9,12 +9,12 @@
         ?>
     
         <h4 class="center grey-text">Menu</h4>
-        <form method="post" id="menu" action="checkout.php">
+        <form class="white" method="post" id="menu" action="checkout.php">
             <fieldset>
                 <legend>Pizza</legend>
                 <table>
                     <tr>
-                    <th>Qty.</th>
+                        <th>Qty.</th>
                         <th>Meal Name</th>
                         <th>Price</th>
                     </tr>
@@ -25,7 +25,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -49,7 +49,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -62,7 +62,7 @@
                 <legend>Rice Meals</legend>
                 <table>
                     <tr>
-                    <th>Qty.</th>
+                        <th>Qty.</th>
                         <th>Meal Name</th>
                         <th>Price</th>
                     </tr>
@@ -73,7 +73,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -97,7 +97,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -121,7 +121,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -129,7 +129,10 @@
                     ?>
                 </table>
             </fieldset>
-            <input type="submit" value="Checkout" name="order">
+
+            <div class="center">
+                <input type="submit" value="Checkout" name="order" class="btn brand z-depth-0">
+            </div>
         </form>
     <?php include 'Temps/footer.php'; ?>
 </html>

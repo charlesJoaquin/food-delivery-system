@@ -111,7 +111,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" value=\"0\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
