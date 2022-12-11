@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 10, 2022 at 07:05 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Host: localhost
+-- Generation Time: Dec 11, 2022 at 10:49 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,16 +33,18 @@ CREATE TABLE `customer` (
   `CUS_PASSWORD` varchar(50) NOT NULL,
   `CUS_NAME` varchar(50) NOT NULL,
   `CUS_ADDRESS` varchar(100) NOT NULL,
-  `CUS_CONTACT_NO` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `CUS_CONTACT_NO` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`CUS_ID`, `CUS_UNAME`, `CUS_PASSWORD`, `CUS_NAME`, `CUS_ADDRESS`, `CUS_CONTACT_NO`) VALUES
-(1000000000, 'amiel', '123', 'Amiel Christian Mala-ay', '22 Adante St.', 2147483647),
-(1000000001, 'aaaa', '123', 'Anya Oliwa', 'Warsaw', 949601960);
+(999999999, 'guest', 'guest', 'guest', 'none', 0),
+(1000000005, 'amiel', '123', 'Amiel Christian Mala-ay', '22 Adante St., Malabon City', 9114389726),
+(1000000006, 'anya', '123', 'Anya Oliwa', '43 Tanglaw St., Quezon City', 933217563),
+(1000000007, 'charles', '123', 'Charles Ansbert', '45 Padre Noval St., Manila', 9478624495);
 
 -- --------------------------------------------------------
 
@@ -54,32 +56,28 @@ CREATE TABLE `cus_order` (
   `CUS_ID` int(11) NOT NULL,
   `CUS_ADDRESS` varchar(100) NOT NULL,
   `CUS_NAME` varchar(50) NOT NULL,
-  `CUS_CONTACT_NO` int(20) NOT NULL,
+  `CUS_CONTACT_NO` bigint(20) NOT NULL,
   `ORDER_ID` int(11) NOT NULL,
   `ORDER_TIME` datetime NOT NULL DEFAULT current_timestamp(),
   `ORDER_COST` int(11) NOT NULL,
   `ORDER_DETAILS` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cus_order`
 --
 
 INSERT INTO `cus_order` (`CUS_ID`, `CUS_ADDRESS`, `CUS_NAME`, `CUS_CONTACT_NO`, `ORDER_ID`, `ORDER_TIME`, `ORDER_COST`, `ORDER_DETAILS`) VALUES
-(1000000000, '22 Adante St.', 'Amiel Christian Mala-ay', 2147483647, 1, '2022-12-10 13:12:33', 0, ''),
-(1000000000, '22 Adante St.', 'Amiel Christian Mala-ay', 2147483647, 2, '2022-12-10 13:13:19', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 3, '2022-12-10 13:27:50', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 4, '2022-12-10 13:30:37', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 5, '2022-12-10 13:31:00', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 6, '2022-12-10 13:32:34', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 7, '2022-12-10 13:39:53', 4730, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 8, '2022-12-10 13:44:38', 0, ''),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 9, '2022-12-10 13:46:33', 400, 'Carbonara x1'),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 10, '2022-12-10 13:46:55', 1700, 'Lasagna x2,Carbonara x2'),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 11, '2022-12-10 13:47:12', 2300, 'Spaghetti x2,Lasagna x2,Carbonara x2'),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 12, '2022-12-10 13:47:21', 5700, 'Spaghetti x2,Lasagna x2,Carbonara x2,Buffalo Wings x4'),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 13, '2022-12-10 13:56:36', 6700, 'Meat Lovers\' Pizza x2,Spaghetti x2,Lasagna x2,Carbonara x2,Buffalo Wings x4'),
-(1000000001, 'Warsaw', 'Anya Oliwa', 949601960, 14, '2022-12-10 13:57:08', 5040, 'Hawaiian Pizza x1,Ham and Cheese Pizza x1,Meat Lovers\' Pizza x1,Spaghetti x1,Lasagna x1,Carbonara x1,Pepper Steak with Rice x1,Buffalo Wings x1,Chicken Strips x1,Mozzarella Sticks x1,1.5L Soda x1,Ice Cream Float x1');
+(1000000005, '25 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 33, '2022-12-11 11:30:10', 800, 'Hawaiian Pizza x2'),
+(1000000005, '25 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 34, '2022-12-11 11:30:50', 500, 'Meat Lovers\' Pizza x1'),
+(1000000007, '45 Padre Noval St., Manila', 'Charles Ansbert', 9478624495, 36, '2022-12-11 12:37:21', 1000, 'Meat Lovers\' Pizza x2'),
+(1000000006, '43 Tanglaw St., Quezon City', 'Anya Oliwa', 933217563, 38, '2022-12-11 13:40:41', 1000, 'Meat Lovers\' Pizza x2'),
+(999999999, '43 Novilla St., Marikina City', 'Beatrice Laus', 933217565, 50, '2022-12-11 15:53:56', 300, 'Spaghetti x1'),
+(999999999, '31 Leap St., Valenzuela City', 'Charles Ansbert', 9342158675, 51, '2022-12-11 16:02:03', 1600, 'Hawaiian Pizza x4'),
+(1000000005, '22 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 53, '2022-12-11 16:17:24', 1000, 'Meat Lovers\' Pizza x2'),
+(1000000005, '26 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 56, '2022-12-11 16:54:15', 2500, '1.5L Soda x25'),
+(1000000005, '22 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 57, '2022-12-11 17:25:15', 1850, 'Meat Lovers\' Pizza x2,Buffalo Wings x1'),
+(1000000005, '25 Adante St., Malabon City', 'Amiel Christian Mala-ay', 9114389726, 58, '2022-12-11 17:25:38', 1700, 'Buffalo Wings x2');
 
 -- --------------------------------------------------------
 
@@ -92,7 +90,7 @@ CREATE TABLE `menu` (
   `MENU_NAME` varchar(50) NOT NULL,
   `MENU_PRICE` int(11) NOT NULL,
   `MENU_TYPE` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `menu`
@@ -144,13 +142,13 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `CUS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000003;
+  MODIFY `CUS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000008;
 
 --
 -- AUTO_INCREMENT for table `cus_order`
 --
 ALTER TABLE `cus_order`
-  MODIFY `ORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Constraints for dumped tables
