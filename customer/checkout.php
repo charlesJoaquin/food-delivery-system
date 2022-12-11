@@ -69,7 +69,9 @@
         
             <input type="hidden" name="cost" value="<?php echo($totalCost); ?>">
             <input type="hidden" name="order-details" value="<?php echo($orderDetails); ?>">
-            <input type="submit" name="place-order" value="Place Order">
+            <div class="center">
+                <input type="submit" name="place-order" value="Place Order" class="btn brand z-depth-0">
+            </div>
         </form>
 
         <?php

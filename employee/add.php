@@ -3,7 +3,7 @@
     include('config/db_connect.php');
 
     $name = $order = $address = $contact = '';
-    $errors = array('name' => '', 'order_name' => '', 'address' => '', 'contact' => '');
+    $errors = array('name' => '', 'order' => '', 'address' => '', 'contact' => '');
 
     
     if (isset($_POST['submit'])) {
@@ -131,7 +131,6 @@
             <label>Name:</label>
             <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
             <div class="red-text"><?php echo $errors['name'] ?></div>
-            <div class="red-text"><?php echo $errors['order_name'] ?></div>
             <label>Address</label>
             <input type="text" name="address" value="<?php echo htmlspecialchars($address) ?>">
             <div class="red-text"><?php echo $errors['address'] ?></div>
