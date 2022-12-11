@@ -18,20 +18,7 @@
         <title>Home</title>
         <?php include 'Temps/header.php'; ?>
 
-
-        <h4 class="center grey-text">
-            <?php 
-                $name = unserialize($_SESSION['username']);
-                if(substr($name, -1) == "s") {
-                    echo $name."'"; 
-                }
-                else {
-                    echo $name."'s"; 
-                }
-            ?> Orders
-        </h4>
-
-        <!-- <h4 class="center grey-text"> <?php echo unserialize($_SESSION['username'])."'s"; ?> Orders</h4> -->
+        <h4 class="center grey-text"> <?php echo unserialize($_SESSION['username'])."'s"; ?> Orders</h4>
         <div class="container">
             <div class="row">
                 
