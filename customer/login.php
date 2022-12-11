@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-    $host="localhost";
-    $user="root";
-    $password = '';  
-    $db_name = "food-delivery-system";  
-    
-    $conn = mysqli_connect($host, $user, $password, $db_name);  
-    if(mysqli_connect_errno()) {  
-        die("Failed to connect with MySQL: ". mysqli_connect_error());
-    }
+    include("config/db_connect.php");
 ?>
 
 <html>
@@ -33,16 +25,25 @@
                     $username = $_POST["username"];
                     $password = $_POST["password"];
 
-                    $sql = "SELECT CUS_UNAME, CUS_PASSWORD FROM customer"; 
+                    $sql = "SELECT CUS_UNAME, CUS_PASSWORD FROM customer";
                     $result = $conn -> query($sql);
 
                     $invalidCredentials = true;
                     while ($row = $result->fetch_assoc())   {
                         if ($username == $row['CUS_UNAME'] and $password == $row['CUS_PASSWORD'])   {
+                            // get user ID
+                            $sql = "SELECT * FROM customer WHERE CUS_UNAME=\"".$username."\"";
+                            $result = $conn -> query($sql);
+                            $row = $result->fetch_assoc();
+                            $userID = $row['CUS_ID'];
+                            
+                            // add username and user ID to session
                             session_start();
                             $_SESSION['username'] = serialize($username);
+                            $_SESSION['userID'] = serialize($userID);
 
-                            header("Location: http://localhost/food-delivery-system/customer/order.php");
+                            // go to customer homepage
+                            header("Location: http://localhost/food-delivery-system/customer/index.php");
                             exit();
                             $invalidCredentials = false;
                         }
@@ -80,7 +81,7 @@
                         ."'".$password."'".","
                         ."'".$name."'".","
                         ."'".$address."'".","
-                        ."'".$contactNumber."'"
+                        .$contactNumber
                         .")";
 
                     if ($conn->query($sql) === TRUE) {

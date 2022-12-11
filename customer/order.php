@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 
 <html>
-    <header>
+    <head>
         <title>Menu</title>
-    </header>
-
-    <body>
-        <h1>Order here!</h1>
-
-        <?php
-            $host="localhost";
-            $user="root";
-            $password = '';  
-            $db_name = "food-delivery-system";  
-            
-            $conn = mysqli_connect($host, $user, $password, $db_name);  
-            if(mysqli_connect_errno()) {  
-                die("Failed to connect with MySQL: ". mysqli_connect_error());
-            }
+        <?php 
+            include 'Temps/header.php'; 
+            include("config/db_connect.php"); 
         ?>
+    
+        <h4 class="center grey-text">Menu</h4>
         <form method="post" id="menu" action="checkout.php">
             <fieldset>
                 <legend>Pizza</legend>
@@ -35,7 +25,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"text\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -59,7 +49,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"text\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -83,7 +73,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"text\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -107,7 +97,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"text\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -131,7 +121,7 @@
 
                         while ($row = $result->fetch_assoc())   {
                             echo("<tr id=\"".$row['MENU_ID']."\">");
-                                echo("<td>"."<input type=\"text\" name=\"item-".$row['MENU_ID']."\"></td>");
+                                echo("<td>"."<input type=\"number\" min=\"0\" max=\"25\" name=\"item-".$row['MENU_ID']."\"></td>");
                                 echo("<td>".$row['MENU_NAME']."</td>");
                                 echo("<td>".$row['MENU_PRICE']."</td>");
                             echo("</tr>");
@@ -139,8 +129,7 @@
                     ?>
                 </table>
             </fieldset>
-
-            <input type="submit" value="Place Order" name="order">
+            <input type="submit" value="Checkout" name="order">
         </form>
-    </body>
+    <?php include 'Temps/footer.php'; ?>
 </html>
