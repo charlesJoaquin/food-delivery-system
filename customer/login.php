@@ -5,9 +5,11 @@
 ?>
 
 <html>
-    <header>
+    <head>
         <title>Login/Register - Customer View</title>
-    </header>
+
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
 
     <body>
         <h1>Hello Customer!</h1>
