@@ -1,6 +1,17 @@
 <?php 
 
-    include('config/db_connect.php');
+    // connect to database
+    $host="localhost";
+    $user="root";
+    $password = '';  
+    $db_name = "food-delivery-system";
+    
+    $conn = mysqli_connect($host, $user, $password, $db_name);
+
+    // check connection
+    if (!$conn) {
+        echo 'Connection error: ' . mysqli_connect_error();
+    }
 
     $name = $order = $address = $contact = '';
     $errors = array('name' => '', 'order' => '', 'address' => '', 'contact' => '');
@@ -105,7 +116,7 @@
 
             if ($conn->query($sql) === TRUE) {
                 // go to employee homepage
-                header("Location: http://localhost/food-delivery-system/employee/index.php");
+                header("Location: home.php");
                 exit();
             }
             else {
@@ -123,7 +134,27 @@
  <!DOCTYPE html>
  <html>
  
- 	<?php include 'Temps/header.php'; ?>
+ <head>
+ 	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<title>Add Order</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style type="text/css">
+        .brand{
+            background: #cbb09c !important;
+        }
+        .brand-text{
+            color: #cbb09c !important;
+        }
+        form{
+            max-width: 460px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+    <body class="grey lighten-4">
 
     <section class="container grey-text">
         <h4 class="center">Add Order</h4>
@@ -169,6 +200,9 @@
         </form>
     </section>
 
- 	<?php include 'Temps/footer.php'; ?>
+    <footer class="section">
+        <div class="center grey-text">© ICS2607 | Course Project | Bulan | Joaquin | Llose | Mala-ay</div>
+    </footer>
+</body>
 
  </html>

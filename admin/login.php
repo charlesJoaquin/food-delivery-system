@@ -24,7 +24,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
     if (empty($uname)) {
 
-        header("Location: index.php?error=User Name is required");
+        header("Location: index.php?error=Username is required");
 
         exit();
 
@@ -36,7 +36,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
     }else{
 
-        $sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass'";
+        $sql = "SELECT * FROM admin WHERE ADMIN_UNAME='$uname' AND ADMIN_PASSWORD='$pass'";
 
         $result = mysqli_query($conn, $sql);
 
@@ -44,15 +44,11 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
             $row = mysqli_fetch_assoc($result);
 
-            if ($row['user_name'] === $uname && $row['password'] === $pass) {
+            if ($row['ADMIN_UNAME'] === $uname && $row['ADMIN_PASSWORD'] === $pass) {
 
                 echo "Logged in!";
 
-                $_SESSION['user_name'] = $row['user_name'];
-
-                $_SESSION['name'] = $row['name'];
-
-                $_SESSION['id'] = $row['id'];
+                $_SESSION['user_name'] = $row['ADMIN_UNAME'];
 
                 header("Location: home.php");
 
@@ -60,7 +56,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
             }else{
 
-                header("Location: index.php?error=Incorect User name or password");
+                header("Location: index.php?error=Incorrect username or password");
 
                 exit();
 
@@ -68,7 +64,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
         }else{
 
-            header("Location: index.php?error=Incorect User name or password");
+            header("Location: index.php?error=Incorrect username or password");
 
             exit();
 

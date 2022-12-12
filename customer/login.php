@@ -5,9 +5,11 @@
 ?>
 
 <html>
-    <header>
+    <head>
         <title>Login/Register - Customer View</title>
-    </header>
+
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
 
     <body>
         <h1>Hello Customer!</h1>
@@ -50,46 +52,6 @@
                     }
                     if ($invalidCredentials)
                         echo("Invalid login credentials. Try again.");
-
-                    $conn -> close();
-            }
-        ?>
-
-        <form method="post">
-            <fieldset>
-                <legend>Register</legend>
-                <p><label>Username:</label> <input type="text" name="username"></p>
-                <p><label>Password:</label> <input type="text" name="password"></p>
-                <p><label>Name:</label> <input type="text" name="name"></p>
-                <p><label>Address:</label> <input type="text" name="address"></p>
-                <p><label>Contact Number:</label> <input type="text" name="contact-number"></p>
-                <input type="submit" name="register" value="Register">
-            </fieldset>
-        </form>
-
-        <?php
-            if (isset($_POST["register"]))   {
-                    $username = $_POST["username"];
-                    $password = $_POST["password"];
-                    $name = $_POST["name"];
-                    $address = $_POST["address"];
-                    $contactNumber = $_POST["contact-number"];
-
-                    $sql = "INSERT INTO customer (CUS_UNAME, CUS_PASSWORD, CUS_NAME, CUS_ADDRESS, CUS_CONTACT_NO)
-                    VALUES ("
-                        ."'".$username."'".","
-                        ."'".$password."'".","
-                        ."'".$name."'".","
-                        ."'".$address."'".","
-                        .$contactNumber
-                        .")";
-
-                    if ($conn->query($sql) === TRUE) {
-                        echo "Record inserted successfully";
-                    }
-                    else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
 
                     $conn -> close();
             }

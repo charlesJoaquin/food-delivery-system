@@ -58,7 +58,7 @@ $image_url='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-delivery-l
 
         if (empty($uname)) {
 
-            header("Location: index.php?error=User Name is required");
+            header("Location: index.php?error=Username is required");
 
             exit();
 
@@ -70,7 +70,7 @@ $image_url='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-delivery-l
 
         }else{
 
-            $sql = "SELECT * FROM employee WHERE EMP_UNAME='$uname' AND EMP_PASSWORD='$pass'";
+            $sql = "SELECT * FROM admin WHERE ADMIN_UNAME='$uname' AND ADMIN_PASSWORD='$pass'";
 
             $result = mysqli_query($conn, $sql);
 
@@ -78,15 +78,11 @@ $image_url='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-delivery-l
 
                 $row = mysqli_fetch_assoc($result);
 
-                if ($row['user_name'] === $uname && $row['password'] === $pass) {
+                if ($row['ADMIN_UNAME'] === $uname && $row['ADMIN_PASSWORD'] === $pass) {
 
                     echo "Logged in!";
 
-                    $_SESSION['user_name'] = $row['user_name'];
-
-                    $_SESSION['name'] = $row['name'];
-
-                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['user_name'] = $row['ADMIN_UNAME'];
 
                     header("Location: home.php");
 
@@ -94,7 +90,7 @@ $image_url='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-delivery-l
 
                 }else{
 
-                    header("Location: index.php?error=Incorect User name or password");
+                    header("Location: index.php?error=Incorrect username or password");
 
                     exit();
 
@@ -102,19 +98,13 @@ $image_url='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-delivery-l
 
             }else{
 
-                header("Location: index.php?error=Incorect User name or password");
+                header("Location: index.php?error=Incorrect username or password");
 
                 exit();
 
             }
 
         }
-
-    }else{
-
-        header("Location: index.php");
-
-        exit();
 
     }
     ?>
